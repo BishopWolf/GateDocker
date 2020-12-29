@@ -23,5 +23,3 @@ RUN mkdir software/gate \
  && make -j8
 
 RUN echo "source /etc/mybashrc" >> /root/.bashrc
-
-ENTRYPOINT source /etc/mybashrc && /software/gate/bin/Gate
