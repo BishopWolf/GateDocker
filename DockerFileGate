@@ -7,6 +7,8 @@
 
 FROM bishopwolf/geant4
 
+SHELL ["/bin/bash", "-c"]
+
 #Prepare for gate
 RUN mkdir software/gate \
  && echo "source /software/geant4/install/bin/geant4.sh" >> /etc/mybashrc \
@@ -20,6 +22,4 @@ RUN mkdir software/gate \
  && cmake ../src/ -DGeant4_DIR=/software/geant4/install \
  && make -j8
 
-RUN echo "source /etc/mybashrc" >> /etc/bashrc
-
-CMD /bin/bash -c "source /etc/bashrc"
+RUN echo "source /etc/mybashrc" >> /root/.bashrc
