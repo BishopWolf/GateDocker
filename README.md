@@ -38,7 +38,7 @@ login: `docker login`
     * `docker run -it --rm -v $PWD:/APP --entrypoint /bin/bash bishopwolf/gate:$version`
 
 You can just install docker and then create an alias in your configuration
-```echo "alias Gate='docker run -i --rm -v $PWD:/APP bishopwolf/gate:$version'" >> ~/.bashrc```
+* ```echo "alias Gate='docker run -i --rm -v $PWD:/APP bishopwolf/gate:$version'" >> ~/.bashrc```
 
 Where: 
 * `$version=9.0`
