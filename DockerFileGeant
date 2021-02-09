@@ -3,7 +3,7 @@
 #login: docker login
 #build: docker build -t bishopwolf/geant4:10.6.1 -f Dockerfile .
 #push: docker push bishopwolf/geant4:10.6.1
-#interactive: docker run -it --rm -v $PWD:/APP --entrypoint /bin/bash bishopwolf/geant4:10.6.1
+#interactive: docker run -it --rm -v $PWD:/APP bishopwolf/geant4:10.6.1 /bin/bash
 
 FROM centos:8
 RUN yum install -y  make \
