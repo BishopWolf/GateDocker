@@ -1,11 +1,14 @@
 #Docker for Geant4
 #systemctl start docker
 #login: docker login
-#build: docker build -t bishopwolf/geant4:10.6.1 -f Dockerfile .
+#build: docker build -t bishopwolf/geant4:10.6.1 -f Dockerfile --build-arg ROOT_Version=v6-19-02 --build-arg Geant4_Version=v10.6.1 .
+#The root and geant4 versions can be ommited, and the default values are used instead
 #push: docker push bishopwolf/geant4:10.6.1
 #interactive: docker run -it --rm -v $PWD:/APP bishopwolf/geant4:10.6.1 /bin/bash
 
 FROM centos:8
+ARG ROOT_Version=v6-19-02
+ARG Geant4_Version=v10.6.1
 RUN yum install -y  make \
                     libX11-devel.x86_64 \
                     libXpm-devel.x86_64 \
@@ -33,7 +36,7 @@ RUN mkdir software/root-cern \
  && source /etc/mybashrc \
  && cd software/root-cern \
  && mkdir src bin install \
- && git clone --branch v6-19-02 https://github.com/root-project/root.git src \
+ && git clone --branch $ROOT_Version https://github.com/root-project/root.git src \
  && cd bin \
  && cmake ../src/ -Dpython=OFF \
                   -DCMAKE_INSTALL_PREFIX=/software/root-cern/install \
@@ -46,7 +49,7 @@ RUN mkdir software/geant4 \
  && source /etc/mybashrc \
  && cd software/geant4 \
  && mkdir src bin install data \
- && git clone --branch v10.6.1 https://github.com/Geant4/geant4.git src \
+ && git clone --branch $Geant4_Version https://github.com/Geant4/geant4.git src \
  && cd bin \
  && cmake ../src/ -DGEANT4_INSTALL_DATA=ON \
                   -DGEANT4_INSTALL_DATADIR=/software/geant4/data \

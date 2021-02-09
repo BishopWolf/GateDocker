@@ -1,12 +1,16 @@
 #Docker for gate
 #systemctl start docker
 #login: docker login
-#build: docker build -t bishopwolf/gate:9.0 -f Dockerfile .
+#build: docker build -t bishopwolf/gate:9.0 -f Dockerfile --build-arg Geant4_Version=v10.6.1 --build-arg Gate_Version=v9.0 .
+#The geant4 and gate versions can be ommited, and the default values are used instead. 
+#Be aware that gate version is linked to a specific geant4 version.
 #push: docker push bishopwolf/gate:9.0
 #Gate: docker run -i --rm -v $PWD:/APP bishopwolf/gate:9.0 mac/main.mac
 #interactive: docker run -it --rm -v $PWD:/APP --entrypoint /bin/bash bishopwolf/gate:9.0
 
-FROM bishopwolf/geant4:10.6.1
+ARG Geant4_Version=bishopwolf/geant4:10.6.1
+FROM $Geant4_Version
+ARG Gate_Version=v9.0
 
 #Prepare for gate
 RUN mkdir software/gate \
@@ -15,7 +19,7 @@ RUN mkdir software/gate \
  && source /etc/mybashrc \
  && cd software/gate \
  && mkdir src bin \
- && git clone --branch v9.0 https://github.com/OpenGATE/Gate.git src \
+ && git clone --branch $Gate_Version https://github.com/OpenGATE/Gate.git src \
  && cd bin \
  && cmake ../src/ -DGeant4_DIR=/software/geant4/install \
  && make -j \
