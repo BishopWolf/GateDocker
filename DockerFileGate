@@ -1,25 +1,33 @@
 #Docker for gate
 #systemctl start docker
 #login: docker login
-#build: docker build -t bishopwolf/gate:9.0 -f DockerFileGate .
+#build: docker build -t bishopwolf/gate:9.0 -f Dockerfile .
 #push: docker push bishopwolf/gate:9.0
-#interactive: docker run -ti --rm -v ~/software:/home bishopwolf/gate:9.0 /bin/bash
+#Gate: docker run -i --rm -v $PWD:/APP bishopwolf/gate:9.0 mac/main.mac
+#interactive: docker run -it --rm -v $PWD:/APP --entrypoint /bin/bash bishopwolf/gate:9.0
 
-FROM bishopwolf/geant4
-
-SHELL ["/bin/bash", "-c"]
+FROM bishopwolf/geant4:10.6.1
 
 #Prepare for gate
 RUN mkdir software/gate \
  && echo "source /software/geant4/install/bin/geant4.sh" >> /etc/mybashrc \
  && echo "source /software/root-cern/install/bin/thisroot.sh" >> /etc/mybashrc \
- && echo "alias Gate='/software/gate/bin/Gate'" >> /etc/mybashrc \
  && source /etc/mybashrc \
  && cd software/gate \
  && mkdir src bin \
  && git clone --branch v9.0 https://github.com/OpenGATE/Gate.git src \
  && cd bin \
  && cmake ../src/ -DGeant4_DIR=/software/geant4/install \
- && make -j8
+ && make -j \
+ && echo "export PATH=/software/gate/bin/:$PATH" >> /etc/mybashrc
 
-RUN echo "source /etc/mybashrc" >> /root/.bashrc
+#Prepare entrypoint
+RUN echo "#!/bin/bash" >> /runGate.sh \
+ && echo "source /etc/mybashrc" >> /runGate.sh \
+ && echo "cd /APP" >> /runGate.sh \
+ && echo "Gate \$1" >> /runGate.sh \
+ && chmod a+x /runGate.sh
+
+WORKDIR /APP
+ENTRYPOINT ["/runGate.sh"]
+CMD [" mac/main.mac"]

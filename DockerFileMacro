@@ -1,9 +1,0 @@
-#Expecting that PWD is in a folder with data and mac subfolders
-#To execute Gate as a command use: docker run -i --rm -v ~/software:/home -v $PWD:/App bishopwolf/gatemacro:9.0
-#inside mac folder it is expected the file executor.mac
-
-FROM bishopwolf/gate:9.0
-
-VOLUME ["/App"]
-WORKDIR /App
-ENTRYPOINT source /etc/mybashrc && cd mac && /software/gate/bin/Gate executor.mac
