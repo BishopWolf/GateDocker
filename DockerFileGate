@@ -1,7 +1,7 @@
 #Docker for gate
 #systemctl start docker
 #login: docker login
-#build: docker build -t bishopwolf/gate:9.0 -f Dockerfile --build-arg Geant4_Version=v10.6.1 --build-arg Gate_Version=v9.0 .
+#build: docker build -t bishopwolf/gate:9.0 -f DockerFileGate --build-arg Geant4_Version=bishopwolf/geant4:10.6.1 --build-arg Gate_Version=v9.0 .
 #The geant4 and gate versions can be ommited, and the default values are used instead. 
 #Be aware that gate version is linked to a specific geant4 version.
 #push: docker push bishopwolf/gate:9.0

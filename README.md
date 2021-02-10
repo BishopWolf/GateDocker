@@ -10,7 +10,7 @@ login: `docker login`
 
 [build and use]
 * build: 
-    * `docker build -t bishopwolf/geant4:$version -f DockerFileGeant .`
+    * `docker build -t bishopwolf/geant4:10.6.1 -f DockerFileGeant --build-arg ROOT_Version=v6-19-02 --build-arg Geant4_Version=v10.6.1 .`
 * push: 
     * `docker push bishopwolf/geant4:$version`
 * interactive: 
@@ -29,7 +29,7 @@ login: `docker login`
 
 [build and use]
 * build: 
-    * `docker build -t bishopwolf/gate:$version -f DockerFileGate .`
+    * `docker build -t bishopwolf/gate:9.0 -f DockerFileGate --build-arg Geant4_Version=bishopwolf/geant4:10.6.1 --build-arg Gate_Version=v9.0 .`
 * push:  
     * `docker push bishopwolf/gate:$version`
 * run command:  
