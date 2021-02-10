@@ -1,5 +1,5 @@
 # GateDocker
-Gate Docker scripts
+Gate Docker scripts, Generate the image by running the `Generate.sh` script
 
 # First Image Geant4
 ## Docker for gate prerequisites
