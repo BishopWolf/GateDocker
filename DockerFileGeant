@@ -40,7 +40,7 @@ RUN mkdir software/root-cern \
  && cd bin \
  && cmake ../src/ -Dpython=OFF \
                   -DCMAKE_INSTALL_PREFIX=/software/root-cern/install \
- && make -j install \
+ && make -j8 install \
  && cd .. \
  && rm -rf bin src
 
@@ -56,7 +56,6 @@ RUN mkdir software/geant4 \
                   -DGEANT4_USE_QT=ON \
                   -DCMAKE_INSTALL_PREFIX=/software/geant4/install \
                   -DGEANT4_USE_OPENGL_X11=ON \
- && make -j \
- && make install \
+ && make -j8 install \
  && cd .. \
  && rm -rf bin src
